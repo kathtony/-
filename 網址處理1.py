@@ -186,6 +186,8 @@ airline['濟州航空'] = 'jejuair'
 airline['真航空'] = 'jinair'
 airline['泰國獅子航空'] = 'lionair'
 airline['酷鳥航空'] = 'nokscoot'
+airline['樂桃航空'] = 'flypeach'
+airline['香草航空'] = 'flypeach' #兩家公司已合併
 
 
 # In[2]:
