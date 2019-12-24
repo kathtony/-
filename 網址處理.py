@@ -180,7 +180,8 @@ airline['濟州航空'] = 'jejuair'
 airline['真航空'] = 'jinair'
 airline['泰國獅子航空'] = 'lionair'
 airline['酷鳥航空'] = 'nokscoot'
-
+airline['樂桃航空'] = 'flypeach'
+airline['香草航空'] = 'flypeach' #兩家公司已合併
 '''
 使用者輸入
 way(_type)來回、單程，出發地，目的地地區，目的地國家，目的地城市，年，月，去幾天，成人數，兒童數，嬰兒數，ticket(_type)是否基本票，去程航空，回程航空，forward(stop or not)是否轉機，去程偏好時段，回程偏好時段,開始價,結束價
@@ -206,6 +207,8 @@ for i in range(month_dict[month]):
     departure_date = datetime.datetime(year,month,i+1)
     diff = datetime.timedelta(days = days)
     back_date = departure_date + diff
+    if back_date >= datetime.datetime(year,month+1,1):
+        break
     if way == '不同點進出':
         departure_spot = list1[1]
         arrive_region = list1[2]
