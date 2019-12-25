@@ -312,6 +312,8 @@ for i in range(month_dict[month]):
         forward_type = 1   
     else:
         forward_type = 2
+    departure_date = departure_date.strftime('%Y-%m-%d')
+    back_date = back_date.strftime('%Y-%m-%d')
     output_data = []
     output_data.append(url)
     output_data.append(departure_date)
