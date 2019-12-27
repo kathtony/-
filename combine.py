@@ -10,6 +10,10 @@ import win32con
 import datetime
 import time
 
+ # 測試資料：
+ # 來回,桃園,東北亞,日本,東京（成田/羽田）機場,2020,6,5,1,0,0,基本票,不限,不限,不限,早,午,0,20000 
+ # 來回,桃園,東北亞,日本,大阪,2020,6,5,1,0,0,基本票,不限,不限,不限,早,午,0,20000
+
 # 來回、單程、不同點進出
 way_type = {'來回':'ROU','單程':'ONE','不同點進出':'ROUND'}
 
@@ -326,11 +330,6 @@ for i in range(month_dict[month]):
     output_data.append(forward_type)
     final_data.append(output_data)
 print(final_data)
-            
-        
- # 測試資料：
- # 來回,桃園,東北亞,日本,東京（成田/羽田）機場,2020,6,5,1,0,0,基本票,不限,不限,不限,早,午,0,20000 
- # 來回,桃園,東北亞,日本,大阪,2020,6,5,1,0,0,基本票,不限,不限,不限,早,午,0,20000
 
 #!/usr/bin/env python
 # coding: utf-8
