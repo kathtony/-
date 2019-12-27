@@ -1,9 +1,15 @@
-'''
-問題：
-確認使用者要填的資訊
-有括號的是要用全形還是半形？有差嗎？
-'''
+# 載入套件
+from selenium import webdriver
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import Select
+from bs4 import BeautifulSoup
+from selenium.webdriver.common.action_chains import ActionChains
+import win32clipboard
+import win32con
 import datetime
+import time
 
 # 來回、單程、不同點進出
 way_type = {'來回':'ROU','單程':'ONE','不同點進出':'ROUND'}
@@ -330,13 +336,6 @@ print(final_data)
 #!/usr/bin/env python
 # coding: utf-8
 
-# 載入套件
-from selenium import webdriver
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-from selenium.webdriver.common.by import By
-import time
-
 # 航空公司字典
 logo_dict = {"https://www.funtime.com.tw/airline/images/airline/D7.png":"亞洲航空",
              "https://www.funtime.com.tw/airline/images/airline/3K.png":"捷星航空",
@@ -408,19 +407,6 @@ print(scrapy_data)
 driver.quit()
 
 # coding=utf-8
-
-from selenium import webdriver
-from selenium.webdriver.support.ui import Select
-from time import sleep
-from bs4 import BeautifulSoup
-from selenium.webdriver.common.action_chains import ActionChains
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import win32clipboard
-import win32con
-
-import datetime
 
 info = scrapy_data
 
