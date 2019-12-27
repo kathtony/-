@@ -3,10 +3,6 @@ from selenium import webdriver
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import Select
-from selenium.webdriver.common.action_chains import ActionChains
-import win32clipboard
-import win32con
 import datetime
 import time
 
@@ -330,10 +326,9 @@ for i in range(month_dict[month]):
     output_data.append(forward_type)
     final_data.append(output_data)
 print(final_data)
-
+            
 #!/usr/bin/env python
 # coding: utf-8
-
 # 航空公司字典
 logo_dict = {"https://www.funtime.com.tw/airline/images/airline/D7.png":"亞洲航空",
              "https://www.funtime.com.tw/airline/images/airline/3K.png":"捷星航空",
@@ -360,7 +355,6 @@ def data_work(list_x,date1, date2,logo):
     result = [plane, go_airport, date1, date2, price, logo, go_time ,back_time,gototal, backtotal]
     return result
 
-
 # 繼承網址處理資料
 data_list = final_data
 # 
@@ -371,17 +365,20 @@ driver_location = "./chromedriver"
 driver = webdriver.Chrome(driver_location)
 count_1 = 0
 e_count = 0
+
 # 網址資料處理(產出網址、日期1、日期2、直飛與否
 while len(data_list) != 0:
     http = data_list[0][0]
     date1 = data_list[0][1]
     date2 = data_list[0][2]
     non_stop = data_list[0][3]
+    
 # 啟動虛擬瀏覽器  
     driver.get(http)
     wait = WebDriverWait(driver, 50)
     wait.until(EC.presence_of_element_located((By.ID,"result_area")),message="")
     alldata_list = driver.find_element_by_id("result_area").text.split("\n")
+    
 # 等待搜尋結束
     while alldata_list[0][0:4] == '正在搜尋':
         time.sleep(3)
@@ -405,7 +402,6 @@ print(scrapy_data)
 driver.quit()
 
 # coding=utf-8
-
 info = scrapy_data
 
 info_ticket = list()
@@ -425,35 +421,33 @@ for i in range(1, len(info)):
     
 info_ticket.sort(key=lambda info_ticket: [info_ticket[4], info_ticket[10]])  # 將機票依價格、總飛行時間之層級排序
 
+#打開瀏覽器,確保chromedriver在目錄下
+browser=webdriver.Chrome('./chromedriver')
 for info in info_ticket:
-    money = info[4]
-    bfrom_city = 'TY'
+    url_tmpt = url
     departure = info[2]
     backdate = info[3]
-    region = 'RE_ASIA_N'
-    country = 'CN_JAPAN'
-    city = 'OSA'
-    url = 'https://www.funtime.com.tw/airline/result.php?bfrom_city=' + bfrom_city + '&departure=' + departure + '&backdate=' + backdate + '&region=' + region + '&country=' + country + '&city=' + city + '&type=ROU&adt=1&chd=0&inf=0&fair_type=TYPE1'
-
-    #打開瀏覽器,確保你已經有chromedriver在你的目錄下
-    browser=webdriver.Chrome('./chromedriver')
-    #在瀏覽器打上網址連入
-    browser.get(url) 
-    sleep(3)
-
-    #這時候就可以分析網頁裡面的元素
-    men_menu = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='result_area']/div[3]/div[1]/div[5]")))
-    ActionChains(browser).move_to_element(men_menu).perform()
-    sleep(3)
-
-    men_menu = WebDriverWait(browser, 10).until(EC.visibility_of_element_located((By.XPATH, "//*[@id='result_area']/div[3]/div[1]/div[5]/div/div/div/div[1]/div")))
-    ActionChains(browser).click(men_menu).perform()
-    sleep(3)
+    air_go = airline[info[5].split("-")[0]]
+    air_back = airline[info[5].split("-")[1]]
+    tmpt = url_tmpt.split("&")
+    tmpt[1] = "departure=" + departure
+    tmpt[2] = "backdate=" + backdate
+    tmpt[13] = "air_go[]=" + air_go
+    tmpt[14] = "air_back[]=" + air_back
+    url_tmpt = "&".join(tmpt)
     
-    win32clipboard.OpenClipboard() 
-    text = win32clipboard.GetClipboardData(win32con.CF_TEXT) 
-    win32clipboard.CloseClipboard() 
-    print(text)
+    #在瀏覽器打上網址連入
+    browser.get(url_tmpt)
+    wait = WebDriverWait(browser, 50)
+    time.sleep(3)
 
-    browser.close()
-    sleep(3)
+    #分析網頁裡面的元素
+    browser.find_element_by_class_name("fly_btn").click()
+    time.sleep(3)
+
+    #輸出連結讓使用者進入購物車頁面
+    link = browser.find_element_by_css_selector("a[href][class][data-show_type]")
+    print(link.get_attribute("href"))
+    time.sleep(3)
+    
+browser.quit()
