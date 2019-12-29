@@ -33,7 +33,7 @@ def main_scrapy(http_list):
                  "https://www.funtime.com.tw/airline/images/airline/VJ.png":"越捷航空",
                  "https://www.funtime.com.tw/airline/images/airline/Z2.png":"亞洲航空",
                  "https://www.funtime.com.tw/airline/images/airline/SL.png":"泰國獅子航空",
-                 "https://www.funtime.com.tw/airline/images/airline/XW.png":"酷鳥航空"
+                 "https://www.funtime.com.tw/airline/images/airline/XW.png":"酷鳥航空",
                  "https://www.funtime.com.tw/airline/images/airline/UO.png":"香港快捷航空",
                  "https://www.funtime.com.tw/airline/images/airline/9C.png":"春秋航空",
                  "https://www.funtime.com.tw/airline/images/airline/7C.png":"濟州航空"}
