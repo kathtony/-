@@ -394,7 +394,7 @@ def http_build(line1):
         output_data.append(back_date)
         output_data.append(forward_type)
         final_data.append(output_data)
-    return final_data, way
+    return final_data, way, url, airline
 
 
 
@@ -503,7 +503,210 @@ def main_scrapy(http_list, way):
 
 # In[ ]:
 
+# coding=utf-8
 
+def bunseki(info):
+    import datetime
+
+    info_ticket = list()
+    for i in range(1, len(info)):
+            if info[i] != "Error":
+                    if "," in info[i][5]:
+                            info[i][5] = int(info[i][5].replace(",", ""))  # 去除價格千分位分隔符號並轉成整數
+                    else:
+                            info[i][5] = int(info[i][5])  # 若價格無千分位分隔符號則直接轉成整數
+
+                    index_hour1 = info[i][9].find("時")
+                    index_hour2 = info[i][10].find("時")
+                    flight_time1 = datetime.timedelta(hours = int(info[i][9][:index_hour1 - 1]), minutes = int(info[i][9][index_hour1 + 1:len(info[i][9])-2]))  # 出發飛行時間
+                    flight_time2 = datetime.timedelta(hours = int(info[i][10][:index_hour2 - 1]), minutes = int(info[i][10][index_hour2 + 1:len(info[i][10])-2]))  # 回程飛行時間
+                    travel_time = datetime.datetime(2000, 1, 1, 0, 0, 0) + flight_time1 + flight_time2  # 以固定日期為基準加上總飛行時間以利後續排序
+                    info[i].append(travel_time)  # 將每張機票資訊加入總飛行時間
+                    info_ticket.append(info[i])  # 將去除標題列之資訊加入清單
+            
+    info_ticket.sort(key=lambda info_ticket: [info_ticket[5], info_ticket[11]])  # 將機票依價格、總飛行時間之層級排序
+
+    return info_ticket
+
+def kuroowaa(url, info_ticket, airline):
+    from selenium import webdriver
+    from selenium.webdriver.support.ui import WebDriverWait
+    from selenium.webdriver.support import expected_conditions as EC
+    from selenium.webdriver.common.by import By
+    import time
+    if len(info_ticket) == 0:
+        pass
+    elif len(info_ticket) == 1:
+        info_ticket = [info_ticket[0]]
+    elif len(info_ticket) == 2:
+        info_ticket = [info_ticket[0], info_ticket[1]]
+    elif len(info_ticket) >= 3:
+        info_ticket = [info_ticket[0], info_ticket[1], info_ticket[2]]
+    else:
+        pass
+
+    url_lt = []
+    #打開瀏覽器,確保chromedriver在目錄下
+    browser=webdriver.Chrome('./chromedriver')
+    for info in info_ticket:
+        url_tmpt = url
+        departure = info[3]
+        backdate = info[4]
+        air_go = airline[info[6].split("-")[0]]
+        air_back = airline[info[6].split("-")[1]]
+        tmpt = url_tmpt.split("&")
+        tmpt[1] = "departure=" + departure
+        tmpt[2] = "backdate=" + backdate
+        tmpt[13] = "air_go[]=" + air_go
+        tmpt[14] = "air_back[]=" + air_back
+        url_tmpt = "&".join(tmpt)
+        
+        #在瀏覽器打上網址連入
+        browser.get(url_tmpt)
+        wait = WebDriverWait(browser, 50)
+        time.sleep(3)
+
+        #分析網頁裡面的元素
+        browser.find_element_by_class_name("fly_btn").click()
+        time.sleep(3)
+
+        link = browser.find_element_by_css_selector("a[href][class][data-show_type]")
+        url_lt.append(link.get_attribute("href"))
+        time.sleep(3)
+        
+    browser.quit()
+    return info_ticket, url_lt
+
+import webbrowser
+from functools import partial
+def callback(url):
+    webbrowser.open_new(url)
+
+def result(info_ticket, url_lt):
+    import tkinter as tk
+    len_info_ticket = len(info_ticket)
+    window = tk.Tk()
+
+    window.title("result")
+    window.geometry("1280x720")
+
+    airplane = tk.Label(window, text = "航空公司", font=('Times new roman', 12))
+    airplane.grid(row = 1, column = 1)
+
+    price = tk.Label(window, text = "票券價格", font=('Times new roman', 12), width = 30, height = 2)
+    price.grid(row = 1, column = 2)
+
+    departure = tk.Label(window, text = "出國日期", font=('Times new roman', 12), width = 30, height = 2)
+    departure.grid(row = 1, column = 3)
+
+    backdate = tk.Label(window, text = "返國日期", font=('Times new roman', 12), width = 30, height = 2)
+    backdate.grid(row = 1, column = 4)
+
+    cart = tk.Label(window, text = "點我連結", font=('Times new roman', 12), width = 30, height = 2)
+    cart.grid(row = 1, column = 5)
+
+    if len_info_ticket == 0:
+        pass
+    
+    elif len_info_ticket == 1:
+        airplane = tk.Label(window, text = info_ticket[0][6], font=('Times new roman', 12))
+        airplane.grid(row = 2, column = 1)
+
+        price = tk.Label(window, text = info_ticket[0][5], font=('Times new roman', 12), width = 30, height = 2)
+        price.grid(row = 2, column = 2)
+
+        departure = tk.Label(window, text = info_ticket[0][3], font=('Times new roman', 12), width = 30, height = 2)
+        departure.grid(row = 2, column = 3)
+
+        backdate = tk.Label(window, text = info_ticket[0][4], font=('Times new roman', 12), width = 30, height = 2)
+        backdate.grid(row = 2, column = 4)
+
+        b = tk.Button(window, text='點我連結', font=('Arial', 12), width=30, height=2, command = partial(callback, url_lt[0]))
+        b.grid(row = 2, column = 5)
+
+    elif len_info_ticket == 2:
+        airplane = tk.Label(window, text = info_ticket[0][6], font=('Times new roman', 12))
+        airplane.grid(row = 2, column = 1)
+
+        price = tk.Label(window, text = info_ticket[0][5], font=('Times new roman', 12), width = 30, height = 2)
+        price.grid(row = 2, column = 2)
+
+        departure = tk.Label(window, text = info_ticket[0][3], font=('Times new roman', 12), width = 30, height = 2)
+        departure.grid(row = 2, column = 3)
+
+        backdate = tk.Label(window, text = info_ticket[0][4], font=('Times new roman', 12), width = 30, height = 2)
+        backdate.grid(row = 2, column = 4)
+
+        b = tk.Button(window, text='點我連結', font=('Arial', 12), width=30, height=2, command = partial(callback, url_lt[0]))
+        b.grid(row = 2, column = 5)
+
+
+        airplane = tk.Label(window, text = info_ticket[1][6], font=('Times new roman', 12))
+        airplane.grid(row = 3, column = 1)
+
+        price = tk.Label(window, text = info_ticket[1][5], font=('Times new roman', 12), width = 30, height = 2)
+        price.grid(row = 3, column = 2)
+
+        departure = tk.Label(window, text = info_ticket[1][3], font=('Times new roman', 12), width = 30, height = 2)
+        departure.grid(row = 3, column = 3)
+
+        backdate = tk.Label(window, text = info_ticket[1][4], font=('Times new roman', 12), width = 30, height = 2)
+        backdate.grid(row = 3, column = 4)
+
+        b = tk.Button(window, text='點我連結', font=('Arial', 12), width=30, height=2, command = partial(callback, url_lt[1]))
+        b.grid(row = 3, column = 5)
+
+    elif len_info_ticket >= 3:
+        airplane = tk.Label(window, text = info_ticket[0][6], font=('Times new roman', 12))
+        airplane.grid(row = 2, column = 1)
+
+        price = tk.Label(window, text = info_ticket[0][5], font=('Times new roman', 12), width = 30, height = 2)
+        price.grid(row = 2, column = 2)
+
+        departure = tk.Label(window, text = info_ticket[0][3], font=('Times new roman', 12), width = 30, height = 2)
+        departure.grid(row = 2, column = 3)
+
+        backdate = tk.Label(window, text = info_ticket[0][4], font=('Times new roman', 12), width = 30, height = 2)
+        backdate.grid(row = 2, column = 4)
+
+        b = tk.Button(window, text='點我連結', font=('Arial', 12), width=30, height=2, command = partial(callback, url_lt[0]))
+        b.grid(row = 2, column = 5)
+
+
+        airplane = tk.Label(window, text = info_ticket[1][6], font=('Times new roman', 12))
+        airplane.grid(row = 3, column = 1)
+
+        price = tk.Label(window, text = info_ticket[1][5], font=('Times new roman', 12), width = 30, height = 2)
+        price.grid(row = 3, column = 2)
+
+        departure = tk.Label(window, text = info_ticket[1][3], font=('Times new roman', 12), width = 30, height = 2)
+        departure.grid(row = 3, column = 3)
+
+        backdate = tk.Label(window, text = info_ticket[1][4], font=('Times new roman', 12), width = 30, height = 2)
+        backdate.grid(row = 3, column = 4)
+
+        b = tk.Button(window, text='點我連結', font=('Arial', 12), width=30, height=2, command = partial(callback, url_lt[1]))
+        b.grid(row = 3, column = 5)
+
+        airplane = tk.Label(window, text = info_ticket[2][6], font=('Times new roman', 12))
+        airplane.grid(row = 4, column = 1)
+
+        price = tk.Label(window, text = info_ticket[2][5], font=('Times new roman', 12), width = 30, height = 2)
+        price.grid(row = 4, column = 2)
+
+        departure = tk.Label(window, text = info_ticket[2][3], font=('Times new roman', 12), width = 30, height = 2)
+        departure.grid(row = 4, column = 3)
+
+        backdate = tk.Label(window, text = info_ticket[2][4], font=('Times new roman', 12), width = 30, height = 2)
+        backdate.grid(row = 4, column = 4)
+
+        b = tk.Button(window, text='點我連結', font=('Arial', 12), width=30, height=2, command = partial(callback, url_lt[2]))
+        b.grid(row = 4, column = 5)
+
+    else:
+        pass
+
+    window.mainloop()
 
 # GUI部分
 import tkinter as tk
@@ -608,22 +811,19 @@ class Window(tk.Frame):
         input_list = ",".join(input_list)
         
         
-        http_list, way = http_build(input_list)
+        http_list, way, url, airline = http_build(input_list)
         self.lb_input.config(text="程式執行中，請耐心等候")
         scrapy_data = main_scrapy(http_list, way)
         self.lb_input.config(text="爬取完成等待分析")
+        '''
         print(scrapy_data)
-
+        '''
+        info_ticket, url_lt = kuroowaa(url, bunseki(scrapy_data), airline)
+        result(info_ticket, url_lt)
+        
 
 myprogram = Window()
 
 myprogram.master.geometry("1400x1200")  # 寬x高
 myprogram.master.title("my window")  # 程式標題
 myprogram.mainloop()
-
-
-
-
-
-
-
