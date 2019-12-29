@@ -60,7 +60,7 @@ def main_scrapy(http_list):
             alldata_list = driver.find_element_by_id("result_area").text.split("\n")
         if alldata_list[0][0:4] == 'Oops':
             ans_list ='Error'
-                break
+            break
         else:
             logo_1 = "div.fly_airline.clearfix > div > div.flight_row.GO.top > div > img"
             logo_2 = "div.fly_airline.clearfix > div > div.flight_row.BACK.top > div > img"
