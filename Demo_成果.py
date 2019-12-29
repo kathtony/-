@@ -445,7 +445,7 @@ def main_scrapy(http_list, way):
                  "https://www.funtime.com.tw/airline/images/airline/TW.png":"德威航空", 
                  "https://www.funtime.com.tw/airline/images/airline/ZE.png":"易斯達航空"}
     
-    driver_location = "C:\\Users\\user\\chromedriver\\chromedriver.exe"
+    driver_location = ".\chromedriver.exe"
     driver = webdriver.Chrome(driver_location)
     air_set ={"TSA", "TPA", "RMQ", "KHH"}
 # 網址資料處理(產出網址、日期1、日期2、直飛與否
