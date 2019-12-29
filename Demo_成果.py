@@ -401,7 +401,7 @@ def http_build(line1):
 
 # In[46]:
 
-
+# 第二部分定義式
 # 資料整理函式 用在67行
 def goback_data(list_x,date1, date2,logo):
     plane = list_x[0] + "-" + list_x[1]
@@ -505,7 +505,7 @@ def main_scrapy(http_list, way):
 
 
 
-
+# GUI部分
 import tkinter as tk
 class Window(tk.Frame):
     def __init__(self):
@@ -622,7 +622,7 @@ myprogram.master.title("my window")  # 程式標題
 myprogram.mainloop()
 
 
-# In[ ]:
+
 
 
 
