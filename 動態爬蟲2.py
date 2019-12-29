@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 # coding: utf-8
-
+# 資料整理函式 用在67行
 def show_data(list_x,date1, date2,logo):
     plane = list_x[0] + "-" + list_x[1]
     go1, gototal, go2 = list_x[2].split(" ")
@@ -17,7 +17,7 @@ def show_data(list_x,date1, date2,logo):
 
 
 
-# chromedriver路徑設定
+# 主要爬取函式
 def main_scrapy(http_list):
     from selenium import webdriver
     from selenium.webdriver.support.ui import WebDriverWait
@@ -25,15 +25,18 @@ def main_scrapy(http_list):
     from selenium.webdriver.common.by import By
     import time
     logo_dict = {"https://www.funtime.com.tw/airline/images/airline/D7.png":"亞洲航空",
-             "https://www.funtime.com.tw/airline/images/airline/3K.png":"捷星航空",
-             "https://www.funtime.com.tw/airline/images/airline/IT.png":"台灣虎航",
-             "https://www.funtime.com.tw/airline/images/airline/MM.png":"樂桃航空",
-             "https://www.funtime.com.tw/airline/images/airline/TR.png":"酷航航空",
-             "https://www.funtime.com.tw/airline/images/airline/LJ.png":"真航空",
-             "https://www.funtime.com.tw/airline/images/airline/VJ.png":"越捷航空",
-             "https://www.funtime.com.tw/airline/images/airline/Z2.png":"亞洲航空",
-             "https://www.funtime.com.tw/airline/images/airline/SL.png":"泰國獅子航空",
-             "https://www.funtime.com.tw/airline/images/airline/XW.png":"酷鳥航空"}
+                 "https://www.funtime.com.tw/airline/images/airline/3K.png":"捷星航空",
+                 "https://www.funtime.com.tw/airline/images/airline/IT.png":"台灣虎航",
+                 "https://www.funtime.com.tw/airline/images/airline/MM.png":"樂桃航空",
+                 "https://www.funtime.com.tw/airline/images/airline/TR.png":"酷航航空",
+                 "https://www.funtime.com.tw/airline/images/airline/LJ.png":"真航空",
+                 "https://www.funtime.com.tw/airline/images/airline/VJ.png":"越捷航空",
+                 "https://www.funtime.com.tw/airline/images/airline/Z2.png":"亞洲航空",
+                 "https://www.funtime.com.tw/airline/images/airline/SL.png":"泰國獅子航空",
+                 "https://www.funtime.com.tw/airline/images/airline/XW.png":"酷鳥航空"
+                 "https://www.funtime.com.tw/airline/images/airline/UO.png":"香港快捷航空",
+                 "https://www.funtime.com.tw/airline/images/airline/9C.png":"春秋航空",
+                 "https://www.funtime.com.tw/airline/images/airline/7C.png":"濟州航空"}
     scrapy_data = [["飛機代號", "飛機機場", "出發日期", "回來日期", "機票價格", "航空公司", "去程時間", "回程時間",\
                "花費時間"]]
     driver_location = "C:\\Users\\user\\chromedriver\\chromedriver.exe"
