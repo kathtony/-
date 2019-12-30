@@ -904,7 +904,7 @@ class Window(tk.Frame):
         self.lb_4 = tk.Label(self, height=1, width=15, text="天數(例:5)", font="微軟正黑體 15")
         input_text = "預設條件：來回票、基本票(不含行李)、1位成人、\n\t不限直飛與轉機、不限時段、不限價格"
         self.lb_s = tk.Label(self, height=2, width=45, text=input_text, font="微軟正黑體 12")
-        GC= tkFont.Font(size=9, weight=tkFont.BOLD, underline=1)
+        GC= tkFont.Font(size=15, weight=tkFont.BOLD, underline=1)
         self.c1 = tk.Label(self, height=1, width=150, text="目的地", font = GC)
         self.NE = tk.Label(self, height=1, width=150, text="東北亞", font = GC)
         self.c7 = tk.Label(self, height=1, width=150, text="日本：東京、東京成田、東京羽田")
