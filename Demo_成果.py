@@ -407,7 +407,7 @@ def goback_data(list_x,date1, date2,logo):
     plane = list_x[0] + "-" + list_x[1]
     go1, gototal, go2 = list_x[2].split(" ")
     go_time = go1 + "-" + go2
-    go_airport= list_x[3].split(' ')
+    go_airport = list_x[3].split(' ')
     go_airport = "-".join(go_airport)
     back1, backtotal, back2 = list_x[4].split(" ")
     back_time = back1 + "-" + back2
