@@ -430,6 +430,7 @@ def go_data(list_x,date,logo):
 def main_scrapy(http_list, way):
     from selenium import webdriver
     import time
+    # from selenium.webdriver.chrome.options import Options
     logo_dict = {"https://www.funtime.com.tw/airline/images/airline/D7.png":"亞洲航空",
                  "https://www.funtime.com.tw/airline/images/airline/GK.png":"捷星航空",
                  "https://www.funtime.com.tw/airline/images/airline/3K.png":"捷星航空",
@@ -448,6 +449,10 @@ def main_scrapy(http_list, way):
                  "https://www.funtime.com.tw/airline/images/airline/ZE.png":"易斯達航空"}
     
     driver_location = "./chromedriver"
+    # 無痕模式
+    #chromeoptions=Options()
+    #chromeoptions.add_argument('--headless')
+    #driver = webdriver.Chrome(driver_location,chrome_options=chromeoptions)
     driver = webdriver.Chrome(driver_location)
     air_set ={"TSA", "TPA", "RMQ", "KHH"}
 # 網址資料處理(產出網址、日期1、日期2、直飛與否
@@ -896,7 +901,8 @@ class Window(tk.Frame):
         self.lb_2 = tk.Label(self, height=1, width=15, text="目的地(例:大阪)", font="微軟正黑體 15")
         self.lb_3 = tk.Label(self, height=1, width=15, text="時間(例:2020/6)", font="微軟正黑體 15")
         self.lb_4 = tk.Label(self, height=1, width=15, text="天數(例:5)", font="微軟正黑體 15")
-        
+        input_text = "預設條件：來回票、基本票(不含行李)、1位成人、\n\t不限直飛與轉機、不限時段、不限價格"
+        self.lb_s = tk.Label(self, height=2, width=45, text=input_text, font="微軟正黑體 12")
         #entry物件(空白輸入)
         self.en_0 = tk.Entry(self, width = 10, textvariable=tk.StringVar(value="來回"), font="微軟正黑體 14")
         self.en_1 = ttk.Combobox(self, width = 10, values=["桃園", "松山", "台中", "高雄"], font="微軟正黑體 14")
@@ -927,6 +933,7 @@ class Window(tk.Frame):
     # 製作特殊按鍵，打勾:出現，不打勾:取消
     def create_special(self):
         if self.var1.get() == 1:
+            self.lb_s.grid_forget()
             self.lb_0 = tk.Label(self, height=1, width=10, text="票種", font="微軟正黑體 14")
             self.lb_5 = tk.Label(self, height=1, width=15, text="人數(大人/小孩/嬰兒)", font="微軟正黑體 14")
             self.lb_6 = tk.Label(self, height=1, width=10, text="直飛與轉機", font="微軟正黑體 14")
@@ -979,12 +986,13 @@ class Window(tk.Frame):
         day = self.en_4.get()
         people = self.en_5.get().split("/")
         people = ",".join(people)
+        constant = "基本票"
         forward = self.en_6.get()
-        constant = "基本票,不限,不限"
+        constant_1 = "不限,不限"
         prefer_departime_time = self.en_7.get()
         prefer_back_time  = self.en_8.get()
         price_range = self.en_9.get()
-        input_list = [way, bfrom, depart, time, day, people,constant,forward, prefer_departime_time,
+        input_list = [way, bfrom, depart, time, day, people,constant,forward, constant_1, prefer_departime_time,
                       prefer_back_time, price_range]
         input_list = ",".join(input_list)
         http_list, way, url, airline = http_build(input_list)
