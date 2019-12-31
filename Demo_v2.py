@@ -884,63 +884,78 @@ class Window(tk.Frame):
     # 基本元件建立
     def create_borders(self):
         # 邊界
-        self.blb_1 = tk.Label(self, height=1, width=2, text="", font="微軟正黑體 10")
-        self.blb_2 = tk.Label(self, height=1, width=10, text="", font="微軟正黑體 15")
-        
-        self.blb_1_1 = tk.Label(self, height=1, width=1, text="", font="微軟正黑體 10")
-        self.blb_1_2 = tk.Label(self, height=1, width=1, text="", font="微軟正黑體 10")
-        self.blb_1.grid(row=1, column=1,rowspan=20)
-        self.blb_1_1.grid(row=1, column=3,rowspan=20)
-        self.blb_1_2.grid(row=1, column=5,rowspan=20)
+        GC = tkFont.Font(size=12, weight=tkFont.BOLD, underline=1)
+        GB = tkFont.Font(size=12)
+        self.blb_1 = tk.Label(self, height=1, width=2, text="", font=GB)
+        self.blb_2 = tk.Label(self, height=1, width=10, text="", font=GB)
+        self.blb_1_1 = tk.Label(self, height=1, width=1, text="")
+        self.blb_1_2 = tk.Label(self, height=1, width=1,text="", font=GB)
+        self.blb_1_3 = tk.Label(self, height=1, width=5, text="", font=GB)
+
+        self.blb_1.grid(row=1, column=1,rowspan=200)
+        self.blb_1_1.grid(row=1, column=3,rowspan=200)
+        self.blb_1_2.grid(row=1, column=5,rowspan=200)
+        self.blb_1_3.grid(row=1, column=7,rowspan=200)
 
         self.blb_2.grid(row=1, column=2)
       
     def create_widgets(self):
         #Build Object/建立物件
         #label物件
-        self.lb_1 = tk.Label(self, height=1, width=15, text="出發地", font="微軟正黑體 15")
-        self.lb_2 = tk.Label(self, height=1, width=15, text="目的地(例:大阪)", font="微軟正黑體 15")
-        self.lb_3 = tk.Label(self, height=1, width=15, text="時間(例:2020/6)", font="微軟正黑體 15")
-        self.lb_4 = tk.Label(self, height=1, width=15, text="天數(例:5)", font="微軟正黑體 15")
-        input_text = "預設條件：來回票、基本票(不含行李)、1位成人、\n\t不限直飛與轉機、不限時段、不限價格"
-        self.lb_s = tk.Label(self, height=2, width=45, text=input_text, font="微軟正黑體 12")
-        GC= tkFont.Font(size=15, weight=tkFont.BOLD, underline=1)
+        fonts = 10
         width_set = 50
-        self.c1 = tk.Label(self, height=1, width=width_set, text="目的地", font = GC)
-        self.NE = tk.Label(self, height=1, width=width_set, text="東北亞", font = GC)
-        self.c7 = tk.Label(self, height=1, width=width_set, text="日本：東京、東京成田、東京羽田")
-        self.c8 = tk.Label(self, height=1, width=width_set, text="沖繩、福岡、名古屋、札幌、函館、仙台、岡山、小松")
-        self.c9 = tk.Label(self, height=1, width=width_set, text="韓國：首爾、首爾仁川、首爾金浦、釜山")
-        self.c10 = tk.Label(self, height=1, width=width_set, text="濟州、大邱、務安、清州")
-        self.GC = tk.Label(self, height=1, width= width_set, text='港澳大陸',font = GC)
-        self.lb_China = tk.Label(self, height=1, width= width_set, text='中國：上海、上海浦東、上海虹橋、北京、香港、澳門')
-        self.lb_SE = tk.Label(self, height=1, width= width_set, text='東南亞', font = GC)
-        self.lb_Thailand = tk.Label(self, height=1, width= width_set, text='泰國：曼谷、普吉島、清邁、合艾')
-        self.lb_singapore = tk.Label(self, height=1, width= width_set, text='新加坡')
-        self.lb_Malaysia = tk.Label(self, height=1, width= width_set, text='馬來西亞：吉隆坡、亞庇、檳城、蘭卡威')
-        self.lb_Indonesia = tk.Label(self, height=1, width= width_set, text='印尼：雅加達、巴里島、泗水、萬隆')
-        self.lb_Philippines = tk.Label(self, height=1, width= width_set, text='菲律賓：馬尼拉、宿霧、長灘島、巴拉望')
-        self.lb_Vietnam = tk.Label(self, height=1, width= width_set, text='越南：胡志明市、河內、峴港、芽莊') 
-        self.eu = tk.Label(self, height=1, width=width_set, text="歐美", font = GC)
-        self.c11 = tk.Label(self, height=1, width=width_set, text="德國：柏林")
-        self.c12 = tk.Label(self, height=1, width=width_set, text="希臘：雅典")
-        self.c13 = tk.Label(self, height=1, width=width_set, text="澳洲：雪梨、墨爾本、黃金海岸、伯斯、凱恩斯、達爾文")
-        self.c14 = tk.Label(self, height=1, width=width_set, text="紐西蘭：奧克蘭")
-        self.c15 = tk.Label(self, height=1, width=width_set, text="關島")
-        self.SA = tk.Label(self, height=1, width=width_set, text="南亞",font = GC)
-        self.c16 = tk.Label(self, height=1, width=width_set, text="印度：加爾各答、孟買、清奈、海得拉巴、班加羅爾")
-        self.c17 = tk.Label(self, height=1, width=width_set, text="馬爾地夫：馬列")
-        self.c18 = tk.Label(self, height=1, width=width_set, text="尼泊爾：加德滿都")
-        self.c19 = tk.Label(self, height=1, width=width_set, text="孟加拉：達卡")
-        self.ME = tk.Label(self, height=1, width=width_set, text="中東",font = GC)
-        self.c20 = tk.Label(self, height=1, width=width_set, text="阿拉伯聯合大公國：杜拜")
-        self.c21 = tk.Label(self, height=1, width=width_set, text="沙烏地阿拉伯：吉達")
-        self.c22 = tk.Label(self, height=1, width=width_set, text="伊朗：德黑蘭")
+        anchors ="w"
+        anchors_en = "center"
+        GD = tkFont.Font(size=12, weight=tkFont.BOLD)
+    
+        GC = tkFont.Font(size=12, weight=tkFont.BOLD, underline=1)
+        GB = tkFont.Font(size=12)
+        GB_1 = tkFont.Font(size=12)
+        self.lb_1 = tk.Label(self, height=1, width=15, text="出發地", font = GD)
+        self.lb_2 = tk.Label(self, height=1, width=15, text="目的地(例:大阪)", font = GD)
+        self.lb_3 = tk.Label(self, height=1, width=15, text="時間(例:2020/6)", font = GD)
+        self.lb_4 = tk.Label(self, height=1, width=15, text="天數(例:5)", font = GD)
+        input_text1 = "預設條件：來回票、基本票(不含行李)、1位成人"
+        input_text2 = "不限直飛與轉機、不限時段、不限價格"
+
+        self.lb_s1 = tk.Label(self, width=45, text=input_text1, font = GD)
+        self.lb_s2 = tk.Label(self, width=45, text=input_text2, font = GD)
+
+        self.c1 = tk.Label(self, height=1, width=width_set, text="目的地", font = GC, anchor=anchors)
+        self.NE = tk.Label(self, height=1, width=width_set, text="東北亞", font = GC, anchor=anchors)
+        self.c7 = tk.Label(self, height=1, width=width_set, text="日本：東京、東京成田、東京羽田", font = GB_1, anchor=anchors)
+        self.c8 = tk.Label(self, height=1, width=width_set, text="沖繩、福岡、名古屋、札幌、函館、仙台、岡山、小松", font = GB_1, anchor=anchors)
+        self.c9 = tk.Label(self, height=1, width=width_set, text="韓國：首爾、首爾仁川、首爾金浦、釜山", font = GB_1, anchor=anchors)
+        self.c10 = tk.Label(self, height=1, width=width_set, text="濟州、大邱、務安、清州", font = GB_1, anchor=anchors)
+        self.GC = tk.Label(self, height=1, width= width_set, text='港澳大陸',font = GC, anchor=anchors)
+        self.lb_China = tk.Label(self, height=1, width= width_set, text='中國：上海、上海浦東、上海虹橋、北京、香港、澳門', font = GB_1, anchor=anchors)
+        self.lb_SE = tk.Label(self, height=1, width= width_set, text='東南亞', font = GC, anchor=anchors)
+        self.lb_Thailand = tk.Label(self, height=1, width= width_set, text='泰國：曼谷、普吉島、清邁、合艾', font = GB_1, anchor=anchors)
+        self.lb_singapore = tk.Label(self, height=1, width= width_set, text='新加坡', font = GB_1, anchor=anchors)
+        self.lb_Malaysia = tk.Label(self, height=1, width= width_set, text='馬來西亞：吉隆坡、亞庇、檳城、蘭卡威', font = GB_1, anchor=anchors)
+        self.lb_Indonesia = tk.Label(self, height=1, width= width_set, text='印尼：雅加達、巴里島、泗水、萬隆', font = GB_1, anchor=anchors)
+        self.lb_Philippines = tk.Label(self, height=1, width= width_set, text='菲律賓：馬尼拉、宿霧、長灘島、巴拉望', font = GB_1, anchor=anchors)
+        self.lb_Vietnam = tk.Label(self, height=1, width= width_set, text='越南：胡志明市、河內、峴港、芽莊', font = GB_1, anchor=anchors) 
+        self.eu = tk.Label(self, height=1, width=width_set, text="歐美", font = GC, anchor=anchors)
+        self.c11 = tk.Label(self, height=1, width=width_set, text="德國：柏林", font = GB_1, anchor=anchors)
+        self.c12 = tk.Label(self, height=1, width=width_set, text="希臘：雅典", font = GB_1, anchor=anchors)
+        self.c13 = tk.Label(self, height=1, width=width_set, text="澳洲：雪梨、墨爾本、黃金海岸、伯斯、凱恩斯、達爾文", font = GB_1, anchor=anchors)
+        self.c14 = tk.Label(self, height=1, width=width_set, text="紐西蘭：奧克蘭", font = GB_1, anchor=anchors)
+        self.c15 = tk.Label(self, height=1, width=width_set, text="關島", font = GB_1, anchor=anchors)
+        self.SA = tk.Label(self, height=1, width=width_set, text="南亞",font = GC, anchor=anchors)
+        self.c16 = tk.Label(self, height=1, width=width_set, text="印度：加爾各答、孟買、清奈、海得拉巴、班加羅爾", font = GB_1, anchor=anchors)
+        self.c17 = tk.Label(self, height=1, width=width_set, text="馬爾地夫：馬列", font = GB_1, anchor=anchors)
+        self.c18 = tk.Label(self, height=1, width=width_set, text="尼泊爾：加德滿都", font = GB_1, anchor=anchors)
+        self.c19 = tk.Label(self, height=1, width=width_set, text="孟加拉：達卡", font = GB_1, anchor=anchors)
+        self.ME = tk.Label(self, height=1, width=width_set, text="中東",font = GC, anchor=anchors)
+        self.c20 = tk.Label(self, height=1, width=width_set, text="阿拉伯聯合大公國：杜拜", font = GB_1, anchor=anchors)
+        self.c21 = tk.Label(self, height=1, width=width_set, text="沙烏地阿拉伯：吉達", font = GB_1, anchor=anchors)
+        self.c22 = tk.Label(self, height=1, width=width_set, text="伊朗：德黑蘭", font = GB_1, anchor=anchors)
 
 
         #Assign Position/指定位置
         column_num = 8
-        column_sapn = 150
+        column_sapn = 30
         self.c1.grid(row=2, column=column_num, columnspan=column_sapn)
         self.NE.grid(row=3, column=column_num, columnspan=column_sapn)
         self.c7.grid(row=4, column=column_num, columnspan=column_sapn) 
@@ -972,19 +987,20 @@ class Window(tk.Frame):
         self.c21.grid(row=29, column=column_num, columnspan=column_sapn)
         self.c22.grid(row=30, column=column_num, columnspan=column_sapn)    
         #entry物件(空白輸入)
-        self.en_0 = tk.Entry(self, width = 10, textvariable=tk.StringVar(value="來回"), font="微軟正黑體 14")
-        self.en_1 = ttk.Combobox(self, width = 10, values=["桃園", "松山", "台中", "高雄"], font="微軟正黑體 14")
-        self.en_2 = tk.Entry(self, width = 10, textvariable=tk.StringVar(value="大阪"), font="微軟正黑體 14")
-        self.en_3 = tk.Entry(self, width = 10, textvariable=tk.StringVar(value="2020/1"), font="微軟正黑體 14")
-        self.en_4 = tk.Entry(self, width = 5, textvariable=tk.StringVar(value="5"), font="微軟正黑體 14")
-        self.en_5 = tk.Entry(self, width = 8, textvariable=tk.StringVar(value="1/0/0"), font="微軟正黑體 14")
-        self.en_6 = tk.Entry(self, width = 10, textvariable=tk.StringVar(value="不限"), font="微軟正黑體 14")
-        self.en_7 = tk.Entry(self, width = 10, textvariable=tk.StringVar(value="不限"), font="微軟正黑體 14")
-        self.en_8 = tk.Entry(self, width = 10, textvariable=tk.StringVar(value="不限"), font="微軟正黑體 14")
-        self.en_9 = tk.Entry(self, width = 10, textvariable=tk.StringVar(value="0,0"), font="微軟正黑體 14")
+        
+        self.en_0 = tk.Entry(self, width = 15, textvariable=tk.StringVar(value="來回"), font = GB)
+        self.en_1 = ttk.Combobox(self, width = 15, values=["桃園", "松山", "台中", "高雄"], font = GB)
+        self.en_2 = tk.Entry(self, width = 15, textvariable=tk.StringVar(value="大阪"), font = GB)
+        self.en_3 = tk.Entry(self, width = 15, textvariable=tk.StringVar(value="2020/1"), font = GB)
+        self.en_4 = tk.Entry(self, width = 5, textvariable=tk.StringVar(value="5"), font = GB)
+        self.en_5 = tk.Entry(self, width = 15, textvariable=tk.StringVar(value="1/0/0"), font = GB)
+        self.en_6 = tk.Entry(self, width = 15, textvariable=tk.StringVar(value="不限"), font = GB)
+        self.en_7 = tk.Entry(self, width = 15, textvariable=tk.StringVar(value="不限"), font = GB)
+        self.en_8 = tk.Entry(self, width = 15, textvariable=tk.StringVar(value="不限"), font = GB)
+        self.en_9 = tk.Entry(self, width = 15, textvariable=tk.StringVar(value="0,0"), font = GB)
         #button物件
         self.var1 = tk.IntVar()
-        self.btn = tk.Button(self, height=1, width=10, text="搜尋",command =self.main_program, font="微軟正黑體 14")
+        self.btn = tk.Button(self, height=1, width=10, text="搜尋",command =self.main_program, font = GC)
         self.spchb = tk.Checkbutton(self, text="特殊條件",variable=self.var1, onvalue=1, offvalue=0,command =self.create_special, font="微軟正黑體 13")
         #物件指定位置(基本介面：出發/到達/日期/天數/搜尋)
         self.lb_1.grid(row=2, column=2)
@@ -997,21 +1013,29 @@ class Window(tk.Frame):
         self.en_4.grid(row=5, column=4)
         self.btn.grid(row=4, column=6)
         self.spchb.grid(row=6, column=2)
-        self.lb_s.grid(row=7, column=2,columnspan = 4)
+        self.lb_s1.grid(row=7, column=2,columnspan=5)
+        self.lb_s2.grid(row=8, column=2,columnspan=5)
+        
+
+
     # 製作特殊按鍵，打勾:出現，不打勾:取消
     def create_special(self):
         if self.var1.get() == 1:
-            self.lb_s.grid_forget()
-            self.lb_0 = tk.Label(self, height=1, width=10, text="票種", font="微軟正黑體 14")
-            self.lb_5 = tk.Label(self, height=1, width=15, text="人數(大人/小孩/嬰兒)", font="微軟正黑體 14")
-            self.lb_6 = tk.Label(self, height=1, width=10, text="直飛與轉機", font="微軟正黑體 14")
-            self.lb_7 = tk.Label(self, height=1, width=10, text="去程時段", font="微軟正黑體 14")
-            self.lb_8 = tk.Label(self, height=1, width=10, text="回程時段", font="微軟正黑體 14")
-            self.lb_9 = tk.Label(self, height=1, width=10, text="票價(0,10000)", font="微軟正黑體 14")
-            self.en_0 = ttk.Combobox(self, width = 10, values=["來回", "單程", "不同點進出"], font="微軟正黑體 14")
-            self.en_6 = ttk.Combobox(self, width = 10, values=["不限", "直飛", "轉機"], font="微軟正黑體 14")
-            self.en_7 = ttk.Combobox(self, width = 10, values=["不限", "早", "午", "晚"], font="微軟正黑體 14")
-            self.en_8 = ttk.Combobox(self, width = 10, values=["不限", "早", "午", "晚"], font="微軟正黑體 14")
+            self.lb_s1.grid_forget()
+            self.lb_s2.grid_forget()
+            GB = tkFont.Font(size=12)
+            GD = tkFont.Font(size=12, weight=tkFont.BOLD)
+            GC = tkFont.Font(size=12, weight=tkFont.BOLD, underline=1)
+            self.lb_0 = tk.Label(self, height=1, width=15, text="票種", font=GD)
+            self.lb_5 = tk.Label(self, height=1, width=15, text="人數(大人/小孩/嬰兒)", font=GD)
+            self.lb_6 = tk.Label(self, height=1, width=15, text="直飛與轉機", font=GD)
+            self.lb_7 = tk.Label(self, height=1, width=15, text="去程時段", font=GD)
+            self.lb_8 = tk.Label(self, height=1, width=15, text="回程時段", font=GD)
+            self.lb_9 = tk.Label(self, height=1, width=15, text="票價(0,10000)", font=GD)
+            self.en_0 = ttk.Combobox(self, width = 15, values=["來回", "單程", "不同點進出"], font=GD)
+            self.en_6 = ttk.Combobox(self, width = 15, values=["不限", "直飛", "轉機"], font=GD)
+            self.en_7 = ttk.Combobox(self, width = 15, values=["不限", "早", "午", "晚"], font=GD)
+            self.en_8 = ttk.Combobox(self, width = 15, values=["不限", "早", "午", "晚"], font=GD)
 
             
             self.lb_0.grid(row=7, column=2)
