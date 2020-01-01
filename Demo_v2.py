@@ -1031,7 +1031,7 @@ class Window(tk.Frame):
             self.lb_6 = tk.Label(self, height=1, width=15, text="直飛與轉機", font=GD)
             self.lb_7 = tk.Label(self, height=1, width=15, text="去程時段", font=GD)
             self.lb_8 = tk.Label(self, height=1, width=15, text="回程時段", font=GD)
-            self.lb_9 = tk.Label(self, height=1, width=15, text="票價(上限2萬,例:0,10000)", font=GD)
+            self.lb_9 = tk.Label(self, height=1, width=20, text="票價(上限2萬,例:0,10000)", font=GD)
             self.en_0 = ttk.Combobox(self, width = 15, values=["來回", "單程", "不同點進出"], font=GD)
             self.en_6 = ttk.Combobox(self, width = 15, values=["不限", "直飛", "轉機"], font=GD)
             self.en_7 = ttk.Combobox(self, width = 15, values=["不限", "早", "午", "晚"], font=GD)
