@@ -1,9 +1,5 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[44]:
-
-
+# 跑動程式前，若要使用此軟體，需import selenium並下載chromedriver
+# 另外須到447、561行改chromedriver位址
 def gui_departdict(entry_x):
     place_dict = {"上海":"港澳大陸,中國,上海","上海浦東":"港澳大陸,中國,上海浦東機場",
         "上海虹橋":"港澳大陸,中國,上海虹橋機場","北京":"港澳大陸,中國,北京",
@@ -1032,7 +1028,7 @@ class Window(tk.Frame):
             self.lb_7 = tk.Label(self, height=1, width=15, text="去程時段", font=GD)
             self.lb_8 = tk.Label(self, height=1, width=15, text="回程時段", font=GD)
             self.lb_9 = tk.Label(self, height=1, width=20, text="票價(上限2萬,例:0,10000)", font=GD)
-            self.en_0 = ttk.Combobox(self, width = 15, values=["來回", "單程", "不同點進出"], font=GD)
+            self.en_0 = ttk.Combobox(self, width = 15, values=["來回",  "不同點進出"], font=GD)
             self.en_6 = ttk.Combobox(self, width = 15, values=["不限", "直飛", "轉機"], font=GD)
             self.en_7 = ttk.Combobox(self, width = 15, values=["不限", "早", "午", "晚"], font=GD)
             self.en_8 = ttk.Combobox(self, width = 15, values=["不限", "早", "午", "晚"], font=GD)
